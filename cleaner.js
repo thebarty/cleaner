@@ -7,6 +7,8 @@ if (Meteor.isServer) {
       );
     }
 
+    console.log(`[_resetDatabase]`, options)
+
     options = options || {};
     var excludedCollections = ['system.indexes'];
     if (options.excludedCollections) {
@@ -22,6 +24,7 @@ if (Meteor.isServer) {
     });
 
     _.each(appCollections, function (appCollection) {
+      console.log(`[_resetDatabase] removing collection ${appCollection.collectionName}`)
       var remove = Meteor.wrapAsync(appCollection.remove, appCollection);
       remove({});
     });
